@@ -1,6 +1,6 @@
 
 const express = require("express");
-const {problemController} = require("../../controllers/index.js");
+const { problemController } = require("../../controllers/index.js");
 
 const problemRouter = express.Router();
 
