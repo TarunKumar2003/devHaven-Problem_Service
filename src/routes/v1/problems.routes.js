@@ -1,11 +1,11 @@
 
 const express = require("express");
-const {ProblemController} = require("../../controllers/index.js");
+const {problemController} = require("../../controllers/index.js");
 
 const problemRouter = express.Router();
 
-problemRouter.get("/ping", ProblemController.pingProblemController);
-problemRouter.get("/:id", ProblemController.getProblem);
+problemRouter.get("/ping", problemController.pingProblemController);
+problemRouter.get("/:id", problemController.getProblem);
 
 
 
