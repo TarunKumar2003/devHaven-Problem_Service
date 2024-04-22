@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const {PORT} = require("./config/server.config.js")
 const  apiRouter  = require("./routes");
 const errorHandler = require("./utils/errorHandler.js");
+const dbConnect = require("./config/db.config.js");
 const app = express();
 
 app.use(bodyParser.json()); /// json input allow 
@@ -20,5 +21,11 @@ app.get("/ping",(req,res)=>{
 app.use(errorHandler);
 
 app.listen(PORT,()=>{
-    console.log(`our app is listening at port localhost:${PORT}`)
+    try {
+        console.log(`our app is listening at port localhost:${PORT}`)
+        dbConnect();
+    } catch (error) {
+        console.log(error);
+    }
+   // console.log(`our app is listening at port localhost:${PORT}`)
 })
