@@ -6,6 +6,7 @@ const problemService = new ProblemService(new ProblemRepository());
 
 const addProblem = async(req, res, next)=>{
      try {
+        console.log("incoming request", req.body);
         const newProblem = await problemService.createProblem(req.body);
         res.status(StatusCodes.CREATED).json({
          success: true,
