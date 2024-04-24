@@ -8,7 +8,7 @@ const addProblem = async(req, res, next)=>{
      try {
         console.log("incoming request", req.body);
         const newProblem = await problemService.createProblem(req.body);
-        res.status(StatusCodes.CREATED).json({
+        return res.status(StatusCodes.CREATED).json({
          success: true,
          message: 'Successfully created a new problem',
          error: {},
@@ -29,13 +29,18 @@ const getProblem = (req, res)=>{
      }
 }
 
-const getProblems = (req,res)=>{
+const getProblems = async (req, res, next)=>{
     try {
-        return res.status(StatusCodes.NOT_IMPLEMENTED).json({
-           message: "Not Implemented"
-        })
+          const response = await problemService.getAllProblems();
+          return res.status(StatusCodes.OK).json({
+            success: true,
+            message: "All the Problems fetched Successfully",
+            error:{},
+            data: response
+          })
+          
      } catch (error) {
-        
+        next(error);
      }
 }
 
