@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const problemSchema = mongoose.Schema({
+const problemSchema = new mongoose.Schema({
     title:{
         type: String,
         required: [true, "Title cannot be empty"]
@@ -32,5 +32,5 @@ const problemSchema = mongoose.Schema({
     ]
 })
 
-const Problem = mongoose.model('Problem', problemSchema);
+const Problem = mongoose.model("Problem", problemSchema);
 module.exports = Problem;
