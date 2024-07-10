@@ -1,6 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const { ProblemRepository } = require("../repositories");
 const { ProblemService } = require("../services");
+const { NotFoundError } = require("../errors");
 
 const problemService = new ProblemService(new ProblemRepository());
 
@@ -19,12 +20,24 @@ const addProblem = async (req, res, next) => {
   }
 };
 
-const getProblem = (req, res) => {
+const getProblem = async (req, res, next) => {
+  const { id } = req.params;
+  if (!id) return null;
   try {
-    return res.status(StatusCodes.NOT_IMPLEMENTED).json({
-      message: "Not Implemented",
+    const response = await problemService.getProblem(id);
+
+    if (!response) {
+      throw new NotFoundError("Problem", id);
+    }
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "successfully fetch specific problem",
+      error: {},
+      data: response,
     });
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
 
 const getProblems = async (req, res, next) => {
