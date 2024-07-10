@@ -3,11 +3,11 @@ const { ProblemRepository } = require("../repositories");
 const { ProblemService } = require("../services");
 const { NotFoundError } = require("../errors");
 
+
 const problemService = new ProblemService(new ProblemRepository());
 
 const addProblem = async (req, res, next) => {
   try {
-    //console.log("incoming request", req.body);
     const newProblem = await problemService.createProblem(req.body);
     return res.status(StatusCodes.CREATED).json({
       success: true,
@@ -19,6 +19,7 @@ const addProblem = async (req, res, next) => {
     next(error);
   }
 };
+
 
 const getProblem = async (req, res, next) => {
   const { id } = req.params;
@@ -40,12 +41,14 @@ const getProblem = async (req, res, next) => {
   }
 };
 
+
 const getProblems = async (req, res, next) => {
   try {
     const response = await problemService.getAllProblems();
     return res.status(StatusCodes.OK).json({
       success: true,
       message: "All the Problems fetched Successfully",
+
       error: {},
       data: response,
     });
@@ -54,27 +57,14 @@ const getProblems = async (req, res, next) => {
   }
 };
 
-const deleteProblem = (req, res) => {
-  try {
-    return res.status(StatusCodes.NOT_IMPLEMENTED).json({
-      message: "Not Implemented",
-    });
-  } catch (error) {}
-};
 
-const updateProblem = (req, res) => {
-  try {
-    return res.status(StatusCodes.NOT_IMPLEMENTED).json({
-      message: "Not Implemented",
-    });
-  } catch (error) {}
-};
+
+
+
 
 module.exports = {
-  //pingProblemController,
   addProblem,
   getProblem,
   getProblems,
-  deleteProblem,
-  updateProblem,
+  
 };
