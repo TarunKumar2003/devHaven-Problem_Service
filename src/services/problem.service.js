@@ -1,24 +1,30 @@
-const sanitizeMarkdownContent = require("../utils/markdownSanitizer.js")
+const sanitizeMarkdownContent = require("../utils/markdownSanitizer.js");
 
 class ProblemService {
+  constructor(problemRepository) {
+    this.problemRepository = problemRepository;
+  }
 
-    constructor(problemRepository){
-        this.problemRepository = problemRepository
+  async createProblem(problemData) {
+    try {
+      // 1. Sanitize the markdown for description
+      problemData.description = sanitizeMarkdownContent(
+        problemData.description
+      );
+
+      const problem = await this.problemRepository.createProblem(problemData);
+
+      return problem;
+    } catch (error) {
+      console.log(error);
+      throw error;
     }
+  }
 
-    async createProblem(problemData) {
-        // 1. Sanitize the markdown for description
-        problemData.description = sanitizeMarkdownContent(problemData.description);
-
-        const problem = await this.problemRepository.createProblem(problemData);
-
-        return problem;
-    }
-
-    async getAllProblems(){
-        const problems = await this.problemRepository.getAllProblems();
-        return problems;
-    }
+  async getAllProblems() {
+    const problems = await this.problemRepository.getAllProblems();
+    return problems;
+  }
 }
 
 module.exports = ProblemService;

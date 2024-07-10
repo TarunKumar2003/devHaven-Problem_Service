@@ -1,4 +1,3 @@
-
 module.exports = {
-    ProblemService: require("./problem.service")
-}
+  ProblemService: require("./problem.service"),
+};
