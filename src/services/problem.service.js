@@ -1,3 +1,4 @@
+const { BadRequest } = require("../errors/index.js");
 const sanitizeMarkdownContent = require("../utils/markdownSanitizer.js");
 
 class ProblemService {
@@ -40,6 +41,10 @@ class ProblemService {
       console.log(error);
       throw error;
     }
+  }
+
+  async deleteProblem(id) {
+    return await this.problemRepository.deleteProblem(id);
   }
 }
 
