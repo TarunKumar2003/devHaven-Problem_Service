@@ -3,7 +3,6 @@ const { ProblemRepository } = require("../repositories");
 const { ProblemService } = require("../services");
 const { NotFoundError } = require("../errors");
 
-
 const problemService = new ProblemService(new ProblemRepository());
 
 const addProblem = async (req, res, next) => {
@@ -19,7 +18,6 @@ const addProblem = async (req, res, next) => {
     next(error);
   }
 };
-
 
 const getProblem = async (req, res, next) => {
   const { id } = req.params;
@@ -41,7 +39,6 @@ const getProblem = async (req, res, next) => {
   }
 };
 
-
 const getProblems = async (req, res, next) => {
   try {
     const response = await problemService.getAllProblems();
@@ -57,14 +54,40 @@ const getProblems = async (req, res, next) => {
   }
 };
 
+const deleteProblem = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    if (!id) {
+      throw NotFoundError("Problem", id);
+    }
+    const response = await problemService.deleteProblem(id);
 
+    if (!response) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        message: "Problem not found  ",
+        error: {},
+        data: {},
+      });
+    }
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Problem deleted successfully ",
+      error: {},
+      data: response,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
-
-
+// update the Problem
+const updateProblem = async (req, res, next) => {};
 
 module.exports = {
   addProblem,
   getProblem,
   getProblems,
-  
+  deleteProblem,
+  updateProblem,
 };

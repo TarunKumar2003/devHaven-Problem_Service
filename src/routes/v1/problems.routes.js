@@ -1,4 +1,3 @@
-
 const express = require("express");
 const { problemController } = require("../../controllers/index.js");
 
@@ -7,14 +6,12 @@ const problemRouter = express.Router();
 //problemRouter.get("/ping", problemController.pingProblemController);
 problemRouter.get("/:id", problemController.getProblem);
 
-problemRouter.get('/', problemController.getProblems);
+problemRouter.get("/", problemController.getProblems);
 
-problemRouter.post('/', problemController.addProblem);
+problemRouter.post("/", problemController.addProblem);
 
-problemRouter.delete('/:id', problemController.deleteProblem);
+problemRouter.delete("/:id", problemController.deleteProblem);
 
-problemRouter.put('/:id', problemController.updateProblem);
-
-
+problemRouter.put("/:id", problemController.updateProblem);
 
 module.exports = problemRouter;
